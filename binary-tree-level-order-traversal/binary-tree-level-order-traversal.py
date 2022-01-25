@@ -10,20 +10,20 @@ class Solution:
         if root == None:
             return []
         
-        queue = deque([[root, 0]])
+        queue = deque([[0, root]])
         answer = {} 
          
         while len(queue) > 0:
-            node, level = queue.popleft()
+            level, node = queue.popleft()
             if level not in answer:
                 answer[level] = []
             answer[level].append(node.val)
             
             if node.left != None:
-                queue.append([node.left, level+1])
+                queue.append([level+1, node.left])
             
             if node.right != None:
-                queue.append([node.right, level+1])
+                queue.append([level+1, node.right])
                 
         return [answer[l] for l in range(len(answer))]
             
