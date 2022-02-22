@@ -1,38 +1,32 @@
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = self.buildGraph(edges)
-        visited = [0 for _ in range(n)]
-        return self.hasPath(graph, source, destination, visited)
-    
-    
-    def buildGraph(self, edges):
-        graph = {}
-        for A,B in edges:
-            if A not in graph:
-                graph[A] = []
-            if B not in graph:
-                graph[B] = []
+        adjlist = self.buildGraph(n, edges)
+        
+        stack = [source]
+        visited = set()
+        
+        while stack:
+            node = stack.pop()
             
-            graph[A].append(B)
-            graph[B].append(A)
-        
-        return graph
-    
-    
-    def hasPath(self, graph, src, dest, visited):
-        if src == dest:
-            return True
-        
-        if visited[src] == 1:
-            return False
-        
-        visited[src] = 1
-        for neighbor in graph[src]:
-            if self.hasPath(graph, neighbor, dest, visited) == True:
+            if node == destination:
                 return True
+            
+            if node in visited:
+                continue
+            
+            visited.add(node)
+            for neighbor in adjlist[node]:
+                stack.append(neighbor)
         
         return False
             
+    
+    def buildGraph(self, n, edges):
+        adjlist = [[] for i in range(n)]
+        for a,b in edges:
+            adjlist[a].append(b)
+            adjlist[b].append(a)
             
-                
+        return adjlist
+        
         
