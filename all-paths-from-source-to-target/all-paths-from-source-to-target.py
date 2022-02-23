@@ -1,28 +1,28 @@
+from collections import deque
 class Solution:
-    def __init__(self):
-        self.result = []
-        
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        if not graph or len(graph) == 0:
-            return self.result
+        result = []
         
-        self.dfs(graph, 0, [0], self.result)
-        return self.result
+        queue = deque()
+        path = [0]
+        # we store the entire path in queue
+        queue.append(path)
+        while queue:
+            # pop the oldest path from queue 
+            currentPath = queue.popleft()
+            # get the last element from path 
+            node = currentPath[-1]
             
-           
-    def dfs(self, graph, curr, path, result):
-        # destination is the last node i.e. len(n)-1 
-        if curr == len(graph)-1:
-            result.append(path.copy())
-            return
-        
-        # recurse on neighbors
-        for neighbor in graph[curr]:
-            path.append(neighbor)
-            self.dfs(graph, neighbor, path, result)
-            path.pop()
-            
-            
-        
-        
+            # visit all neighbors of that node
+            for neighbor in graph[node]:
+                tempPath = currentPath.copy()
+                tempPath.append(neighbor)
+                # if its the last node, then add this path to result       
+                if neighbor == len(graph)-1:
+                    result.append(tempPath)
+                else:
+                # add this path to the queue
+                    queue.append(tempPath)
+                
+        return result
         
