@@ -13,6 +13,7 @@ class Solution:
                 for v_i, w_i in graph[v]:
                     heapq.heappush(priority_queue, (w + w_i, v_i))
                     
+                             
         if len(shortest_path) == n:
             return max(shortest_path.values())
         else:
