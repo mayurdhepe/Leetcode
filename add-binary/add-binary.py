@@ -1,7 +1,18 @@
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
-        a = int(a, 2)
-        b = int(b, 2)
-        c = a + b
-        return '{0:b}'.format(c)
+        carry = 0
+        res = ''
+        a = list(a)
+        b = list(b)
+        
+        while a or b or carry:
+            if a:
+                carry += int(a.pop())
+            if b:
+                carry += int(b.pop())
+            
+            res += str(carry%2)
+            carry = carry//2
+            
+        return res[::-1]
         
