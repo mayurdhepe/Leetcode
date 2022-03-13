@@ -1,4 +1,8 @@
+from collections import Counter
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        return sorted(s) == sorted(t)
+        hashS = Counter(s)
+        hashT = Counter(t)
+        
+        return hashS == hashT
         
