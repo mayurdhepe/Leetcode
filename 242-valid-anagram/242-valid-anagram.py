@@ -1,8 +1,18 @@
-from collections import Counter
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        hashS = Counter(s)
-        hashT = Counter(t)
+        if len(s) != len(t):
+            return False
         
-        return hashS == hashT
-        
+        hashMap = {}
+        for ch in s:
+            hashMap[ch] = hashMap.get(ch, 0) + 1
+           
+        for ch in t:
+            if hashMap.get(ch):
+                hashMap[ch] -= 1
+            else:
+                return False
+            
+        if sum(list(hashMap.values())) == 0:
+	        return True
+            
