@@ -1,13 +1,26 @@
 class Solution:
-    def rob(self, nums: List[int]) -> int:
-        rob1, rob2 = 0, 0
-        
-        # [rob1, rob2, n, n+1, ..]
-        for n in nums:
-            temp = max(n + rob1, rob2)
-            # proceed the pointers
-            rob1 = rob2
-            rob2 = temp
+    def __init__(self):
+        self.memo = {}
             
-        return rob2
+    def rob(self, nums: List[int]) -> int:
+        self.memo = {}
         
+        return self.robFrom(0, nums)
+    
+    def robFrom(self, i, nums):
+        
+        # no more houses left to examine
+        if i>=len(nums):
+            return 0
+        
+        # return cached value if present
+        if i in self.memo:
+            return self.memo[i]
+        
+        # recursive relation
+        ans = max(self.robFrom(i+1, nums), self.robFrom(i+2, nums) + nums[i])
+        
+        # cache for future use
+        self.memo[i] = ans
+        
+        return ans
