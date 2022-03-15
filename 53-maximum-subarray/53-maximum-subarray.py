@@ -2,13 +2,12 @@ import math
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         maxSum = -math.inf
-        subArrSum = 0
-        for i in range(len(nums)):
-            subArrSum += nums[i]
-            maxSum = max(maxSum, subArrSum)
-            if subArrSum < 0:
-                subArrSum = 0
+        currSubArraySum = 0
+        for num in nums:
+            currSubArraySum += num   
+            maxSum = max(maxSum, currSubArraySum)
+            
+            if currSubArraySum < 0:
+                currSubArraySum = 0
             
         return maxSum
-            
-        
