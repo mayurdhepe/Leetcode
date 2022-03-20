@@ -1,14 +1,13 @@
-import math
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        largestDiff = 0
-        minSoFar = math.inf
+        maxDiff = 0
+        currMin = math.inf
         
         for price in prices:
-            if price < minSoFar:
-                minSoFar = price
+            if price < currMin:
+                currMin = price
             else:
-                largestDiff = max(largestDiff, price - minSoFar)
+                maxDiff = max(maxDiff, price - currMin)
                 
-        return largestDiff
+        return maxDiff
         
