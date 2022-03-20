@@ -5,20 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.ans = []
-        
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        self.postOrder(root)
-        return self.ans
-        
-    
-    def postOrder(self, root: Optional[TreeNode]) -> List[int]:
-        if root:
-            self.postOrder(root.left)
-            self.postOrder(root.right)
-            
-            self.ans.append(root.val)
-            
-
-        
+        if not root:
+            return []
+        post_order, stack = [], []
+        node = root
+        while stack or node:
+            while node:
+                if node.right:
+                    stack.append(node.right)
+                stack.append(node)
+                node = node.left
+            last = stack.pop()
+            if last.right and stack and last.right == stack[-1]:
+                node = stack.pop()
+                stack.append(last)
+            else:
+                post_order.append(last.val)
+        return post_order
