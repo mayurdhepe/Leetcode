@@ -3,16 +3,19 @@ class Solution:
         if len(s) != len(t):
             return False
         
-        hashMap = {}
-        for ch in s:
-            hashMap[ch] = hashMap.get(ch, 0) + 1
-           
-        for ch in t:
-            if hashMap.get(ch):
-                hashMap[ch] -= 1
+        count = {}
+        for c in s:
+            count[c] = count.get(c, 0) + 1
+        
+        print(count)
+        for c in t:
+            if c in count and count[c] >= 1:
+                count[c] -= 1
             else:
                 return False
+        
+        print(count)
+        if sum(list(count.values())) == 0:
+            return True
             
-        if sum(list(hashMap.values())) == 0:
-	        return True
-            
+        
