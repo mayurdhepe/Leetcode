@@ -9,19 +9,9 @@ class Solution:
         if root is None:
             return TreeNode(val)
         
-        curr = root
-        while curr:
-            if curr.val >= val:
-                if curr.left:
-                    curr = curr.left
-                else:
-                    curr.left = TreeNode(val)
-                    break
-            else:
-                if curr.right:
-                    curr = curr.right
-                else:
-                    curr.right = TreeNode(val)
-                    break
+        if root.val >= val:
+            root.left = self.insertIntoBST(root.left, val)
+        else:
+            root.right = self.insertIntoBST(root.right, val)
         
         return root
