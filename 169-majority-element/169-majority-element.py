@@ -1,15 +1,17 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        count = {}
-        res, maxCount = 0, 0 
+        # Boyer Moore algo
+        res, count = 0, 0
         
         for n in nums:
-            count[n] = count.get(n, 0) + 1
-            if count[n] > maxCount:
+            if count == 0:
                 res = n
-            maxCount = max(maxCount, count[n])
-            
+                
+            if n == res:
+                count += 1
+            else:
+                count -= 1
+                
         return res
-            
-       
+        
         
